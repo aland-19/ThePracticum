@@ -1,4 +1,24 @@
 # ThePracticum
+
+## Overview
+
+The software exercise below is taken directly from the real world and is used by an organization to evaluate and gauge 
+a developer's skill in taking a relatively simple, easy to understand, problem such as running a kitchen with breakfast, lunch and dinner items 
+and maturing the simple implementation into a more sophisticated piece of software.  The opportunity is for the developer to 
+showcase their abilities in using object oriented design and development techniques, along with unit and acceptance test and 
+any other language features they want to explore and demonstrate their knowledge of.
+
+In our specific case, we will take this opportunity to explore, discuss, learn and dig deeply into the following:
+* Analysis of problem
+* Design of a problem
+* Object oriented modeling
+* Various language features such as tuples, private functions, enumerations, etc...
+* Dependency injection
+* Single responsibility and other SOLID principles
+* Unit and acceptance testing
+
+We will leverage GitHub to learn and exercise Pull Request and continue to sharpen git skill such as branching, merging, tagging...
+
 # .NET Developer Practicum - Refactoring
 
 **Introduction:**
