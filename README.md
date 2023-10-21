@@ -9,7 +9,7 @@ showcase their abilities in using object oriented design and development techniq
 any other language features they want to explore and demonstrate their knowledge of.
 
 In our specific case, we will take this opportunity to explore, discuss, learn and dig deeply into the following:
-* Analysis of problem
+* Analysis of problemgit 
 * Design of a problem
 * Object oriented modeling
 * Various language features such as tuples, private functions, enumerations, etc...
