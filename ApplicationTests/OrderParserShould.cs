@@ -8,37 +8,37 @@ namespace ApplicationTests
     [TestFixture]
     public class OrderParserShould
     {
-        private OrderParser _cut = new OrderParser();
+        private OrderParser orderParser = new OrderParser();
         
         [Test]
         public void NotAllowEmptyString()
         {
-            var result = _cut.Parse(string.Empty);
+            var result = orderParser.Parse(string.Empty);
             result.IsValid.ShouldBeFalse();
         }
         
         [Test]
         public void NotAllowNull()
         {
-            var result = _cut.Parse(null);
+            var result = orderParser.Parse(null);
             result.IsValid.ShouldBeFalse();
         }
         
         [Test]
         public void NotAllowAnOrderWithJustAMealTypeAndNotDishes()
         {
-            var result = _cut.Parse("abc");
+            var result = orderParser.Parse("abc");
             result.IsValid.ShouldBeFalse();
         }
         
         [TestCase("dinner 1", 1)]
         [TestCase("breakfast 1,2,2", 3)]
         [TestCase("breakfast 1,2,24  ,    ", 3)]
-        public void AllowsOrderThatIsCorrectlyFormatted(string order, int dishCount)
+        public void AllowsOrderThatIsCorrectlyFormatted(string order, int itemsOrdered)
         {
-            var result = _cut.Parse(order);
+            var result = orderParser.Parse(order);
             result.IsValid.ShouldBeTrue();
-            result.Dishes.Count().ShouldEqual(dishCount);
+            result.Dishes.Count().ShouldEqual(itemsOrdered);
         }
     }
 }
