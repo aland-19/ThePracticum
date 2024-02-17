@@ -21,7 +21,7 @@ namespace ApplicationTests
         public void EmptyListReturnsEmptyList()
         {
             var order = new Order();
-            var actual = _sut.GetDishes(order);
+            var actual = _sut.GetMeals(order);
             Assert.AreEqual(0, actual.Count);
         }
 
@@ -36,7 +36,7 @@ namespace ApplicationTests
                 }
             };
 
-            var actual = _sut.GetDishes(order);
+            var actual = _sut.GetMeals(order);
             Assert.AreEqual(1, actual.Count);
             Assert.AreEqual("steak", actual.First().DishName);
             Assert.AreEqual(1, actual.First().Count);

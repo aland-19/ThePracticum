@@ -32,13 +32,16 @@ namespace ApplicationTests
         }
         
         [TestCase("dinner 1", 1)]
+        [TestCase("1 1", 1)]
+        [TestCase("1 a,b,c", 3)]
         [TestCase("breakfast 1,2,2", 3)]
         [TestCase("breakfast 1,2,24  ,    ", 3)]
-        public void AllowsOrderThatIsCorrectlyFormatted(string order, int itemsOrdered)
+        [TestCase("a 15432,27654,2497887,76876,876876  ,    ", 5)]
+        public void AllowsOrderThatIsCorrectlyFormatted(string order, int expectedItemsOrdered)
         {
             var result = orderParser.Parse(order);
             result.IsValid.ShouldBeTrue();
-            result.Dishes.Count().ShouldEqual(itemsOrdered);
+            result.Dishes.Count().ShouldEqual(expectedItemsOrdered);
         }
     }
 }

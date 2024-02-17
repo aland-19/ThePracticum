@@ -5,6 +5,7 @@ namespace Application
 {
     public class Server : IServer
     {
+
         private readonly IDishManager _dishManager;
 
         public Server(IDishManager dishManager)
@@ -17,8 +18,8 @@ namespace Application
             try
             {
                 Order order = ParseOrder(unparsedOrder);
-                List<Dish> dishes = _dishManager.GetDishes(order);
-                string returnValue = FormatOutput(dishes);
+                List<MenuItems> Meals = _dishManager.GetMeals(order);
+                string returnValue = FormatOutput(Meals);
                 return returnValue;
             }
             catch (ApplicationException)
@@ -26,7 +27,6 @@ namespace Application
                 return "error";
             }
         }
-
 
         private Order ParseOrder(string unparsedOrder)
         {
@@ -50,7 +50,7 @@ namespace Application
             return returnValue;
         }
 
-        private string FormatOutput(List<Dish> dishes)
+        private string FormatOutput(List<MenuItems> dishes)
         {
             var returnValue = "";
 

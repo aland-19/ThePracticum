@@ -11,14 +11,15 @@ namespace Application
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
-        public List<Dish> GetDishes(Order order)
+        public List<MenuItems> GetMeals(Order order)
         {
-            var returnValue = new List<Dish>();
+            var returnValue = new List<MenuItems>();
             order.Dishes.Sort();
             foreach (var dishType in order.Dishes)
             {
                 AddOrderToList(dishType, returnValue);
             }
+
             return returnValue;
         }
 
@@ -30,18 +31,19 @@ namespace Application
         /// </summary>
         /// <param name="order">int, represents a dishtype</param>
         /// <param name="returnValue">a list of dishes, - get appended to or changed </param>
-        private void AddOrderToList(int order, List<Dish> returnValue)
+        private void AddOrderToList(int order, List<MenuItems> returnValue)
         {
             string orderName = GetOrderName(order);
             var existingOrder = returnValue.SingleOrDefault(x => x.DishName == orderName);
             if (existingOrder == null)
             {
-                returnValue.Add(new Dish
+                returnValue.Add(new MenuItems()
                 {
                     DishName = orderName,
                     Count = 1
                 });
-            } else if (IsMultipleAllowed(order))
+            }
+            else if (IsMultipleAllowed(order))
             {
                 existingOrder.Count++;
             }
