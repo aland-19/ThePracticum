@@ -12,6 +12,5 @@ public class MenuItems
     public string DishName { get; set; }
     public bool AllowsMany { get; set; }
     public int ItemNumber { get; set; }
-    
     public int Count { get; set; }
 }

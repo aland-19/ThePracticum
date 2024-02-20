@@ -11,5 +11,7 @@ namespace Application
         /// <param name="order"></param>
         /// <returns></returns>
         List<MenuItems> GetMeals(Order order);
+
+        List<MenuItems> GetMeals();
     }
 }

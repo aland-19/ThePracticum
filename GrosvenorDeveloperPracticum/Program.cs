@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Reflection.Metadata.Ecma335;
 using Application;
 
@@ -15,37 +16,17 @@ namespace GrosvenorInHousePracticum
                 Console.WriteLine("Please provide your order:");
                 var unparsedOrder = Console.ReadLine();
                 var output = server.TakeOrder(unparsedOrder);
-               
-                string UserInput = Console.ReadLine();
 
-                if (int.TryParse(UserInput, out int ItemNumber))
-                {
-                    if (ItemNumber == 1)
-                    {   
-                        // somehow implement this with the menu items
-                    }
-
-                    if (ItemNumber == 2)
-                    {
-                        
-                    }
-
-                    if (ItemNumber == 3)
-                    {
-                        
-                    }
-
-                    if (ItemNumber == 4)
-                    {
-                        
-                    }
-                }
+                string TimeOfDay = Console.ReadLine();
                 
-                Console.WriteLine(output);
+                if (TimeOfDay == "Morning" || TimeOfDay == "morning" || TimeOfDay == "Evening" || TimeOfDay == "evening");
+                {
+                    Console.WriteLine($"{TimeOfDay},");
+                }
             }
         }
 
-        private static Menu BuildMenu()
+        public static Menu BuildMenu()
         {
             var morningItems = new List<MenuItems>();
             

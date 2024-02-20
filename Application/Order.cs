@@ -9,5 +9,6 @@ namespace Application
             Dishes = new List<int>();
         }
         public List<int> Dishes { get; set; }
+        
     }
 }

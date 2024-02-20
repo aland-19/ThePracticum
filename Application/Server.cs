@@ -17,9 +17,9 @@ namespace Application
         {
             try
             {
-                Order order = ParseOrder(unparsedOrder);
-                List<MenuItems> Meals = _dishManager.GetMeals(order);
-                string returnValue = FormatOutput(Meals);
+                MenuItems order = ParseOrder(unparsedOrder);
+                List<MenuItems> meals = _dishManager.GetMeals();
+                string returnValue = FormatOutput(meals);
                 return returnValue;
             }
             catch (ApplicationException)
@@ -28,11 +28,11 @@ namespace Application
             }
         }
 
-        private Order ParseOrder(string unparsedOrder)
+        public MenuItems ParseOrder(string unparsedOrder)
         {
-            var returnValue = new Order
+            var returnValue = new MenuItems()
             {
-                Dishes = new List<int>()
+                ItemNumber = new int()
             };
 
             var orderItems = unparsedOrder.Split(',');
@@ -40,13 +40,27 @@ namespace Application
             {
                 if (int.TryParse(orderItem, out int parsedOrder))
                 {
-                    returnValue.Dishes.Add(parsedOrder);
+                    
                 }
                 else
                 {
                     throw new ApplicationException("Order needs to be comma separated list of numbers");
                 }
             }
+
+            var ItemNumber = unparsedOrder;
+            foreach (var Number in ItemNumber)
+            {
+                if (int.TryParse(ItemNumber, out int OrderNumber))
+                {
+                    returnValue.ItemNumber.ToString();
+                }
+                else
+                {
+                    throw new ApplicationException("Meals need to be inputted by numbers.");
+                }
+            }
+            
             return returnValue;
         }
 

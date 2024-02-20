@@ -23,6 +23,11 @@ namespace Application
             return returnValue;
         }
 
+        public List<MenuItems> GetMeals()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Takes an int, representing an order type, tries to find it in the list.
         /// If the dish type does not exist, add it and set count to 1
@@ -33,13 +38,14 @@ namespace Application
         /// <param name="returnValue">a list of dishes, - get appended to or changed </param>
         private void AddOrderToList(int order, List<MenuItems> returnValue)
         {
-            string orderName = GetOrderName(order);
-            var existingOrder = returnValue.SingleOrDefault(x => x.DishName == orderName);
+            string morningOrderName = GetMorningOrderName(order);
+            string eveningOrderName = GetEveningOrderName(order);
+            var existingOrder = returnValue.SingleOrDefault(x => x.DishName == morningOrderName);
             if (existingOrder == null)
             {
                 returnValue.Add(new MenuItems()
                 {
-                    DishName = orderName,
+                    DishName = morningOrderName,
                     Count = 1
                 });
             }
@@ -49,11 +55,11 @@ namespace Application
             }
             else
             {
-                throw new ApplicationException(string.Format("Multiple {0}(s) not allowed", orderName));
+                throw new ApplicationException(string.Format("Multiple {0}(s) not allowed", morningOrderName));
             }
         }
 
-        private string GetOrderName(int order)
+        private string GetEveningOrderName(int order)
         {
             switch (order)
             {
@@ -71,8 +77,22 @@ namespace Application
             }
         }
 
+        private string GetMorningOrderName(int order)
+        {
+            switch (order)
+            {
+                case 1:
+                    return "egg";
+                case 2:
+                    return "coffee";
+                case 3:
+                    return "toast";
+            }
 
-        private bool IsMultipleAllowed(int order)
+            return null;
+        }
+
+    private bool IsMultipleAllowed(int order)
         {
             switch (order)
             {
