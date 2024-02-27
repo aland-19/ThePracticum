@@ -13,4 +13,5 @@ public class MenuItems
     public bool AllowsMany { get; set; }
     public int ItemNumber { get; set; }
     public int Count { get; set; }
+    public object Meals { get; set; }
 }

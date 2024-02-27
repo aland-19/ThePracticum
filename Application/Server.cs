@@ -13,6 +13,7 @@ namespace Application
             _dishManager = dishManager;
         }
         
+        
         public string TakeOrder(string unparsedOrder)
         {
             try
@@ -40,7 +41,6 @@ namespace Application
             {
                 if (int.TryParse(orderItem, out int parsedOrder))
                 {
-                    
                 }
                 else
                 {
@@ -48,10 +48,10 @@ namespace Application
                 }
             }
 
-            var ItemNumber = unparsedOrder;
-            foreach (var Number in ItemNumber)
+            var itemNumber = unparsedOrder;
+            foreach (var number in itemNumber)
             {
-                if (int.TryParse(ItemNumber, out int OrderNumber))
+                if (int.TryParse(itemNumber, out int orderNumber))
                 {
                     returnValue.ItemNumber.ToString();
                 }
