@@ -6,6 +6,8 @@ namespace Application
 {
     public class DishManager : IDishManager
     {
+        private IDishManager _dishManagerImplementation;
+
         /// <summary>
         /// Takes an Order object, sorts the orders and builds a list of dishes to be returned. 
         /// </summary>
@@ -21,6 +23,11 @@ namespace Application
             }
 
             return returnValue;
+        }
+
+        public List<MenuItems> GetMeals(MenuItems menuItems)
+        {
+            throw new NotImplementedException();
         }
 
         public List<MenuItems> GetMeals()
