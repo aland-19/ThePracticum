@@ -4,16 +4,12 @@ namespace Application;
 
 public class Menu
 {
-    public Dictionary<string, List<MenuItems>> Meals;
+    public Dictionary<string, List<MenuItem>> Meals;
 }
 
-public class MenuItems
+public class MenuItem
 {
     public string DishName { get; set; }
     public bool AllowsMany { get; set; }
     public int ItemNumber { get; set; }
-    public int Count { get; set; }
-
-    public List<int> MealNumber;
-
 }

@@ -10,7 +10,7 @@ namespace Application
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
-        List<MenuItems> GetMeals(MenuItems order);
-        List<MenuItems> GetMeals();
+        List<MenuItem> GetMeals(MenuItem order);
+        List<MenuItem> GetMeals();
     }
 }

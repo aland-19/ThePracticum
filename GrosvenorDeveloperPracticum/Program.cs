@@ -10,12 +10,12 @@ namespace GrosvenorInHousePracticum
     {
         static void Main()
         {
-            var server = new Server(new DishManager());
+            //var server = new Server(new DishManager());
             while (true)
             {
                 Console.WriteLine("Please provide your order:");
                 var unparsedOrder = Console.ReadLine();
-                var output = server.TakeOrder(unparsedOrder);
+                //var output = server.TakeOrder(unparsedOrder);
 
                 string TimeOfDay = Console.ReadLine();
                 
@@ -28,23 +28,23 @@ namespace GrosvenorInHousePracticum
 
         public static Menu BuildMenu()
         {
-            var morningItems = new List<MenuItems>();
+            var morningItems = new List<MenuItem>();
             
-            morningItems.Add(new MenuItems
+            morningItems.Add(new MenuItem
             {
                 ItemNumber = 1,
                 DishName = "Egg",
                 AllowsMany = false
             });
                         
-            morningItems.Add(new MenuItems
+            morningItems.Add(new MenuItem
             {
                 ItemNumber = 2,
                 DishName = "Toast",
                 AllowsMany = false
             });  
             
-            morningItems.Add(new MenuItems
+            morningItems.Add(new MenuItem
             {
                 ItemNumber = 3,
                 DishName = "Coffee",
@@ -53,32 +53,32 @@ namespace GrosvenorInHousePracticum
             
             var menu = new Menu();
             menu.Meals.Add("morning", morningItems);
-            menu.Meals.Add("evening", new List<MenuItems> {});
+            menu.Meals.Add("evening", new List<MenuItem> {});
 
-            var eveningItems = new List<MenuItems>();
+            var eveningItems = new List<MenuItem>();
 
-            eveningItems.Add(new MenuItems
+            eveningItems.Add(new MenuItem
             {
                 ItemNumber = 1,
                 DishName = "Steak",
                 AllowsMany = false
             });
 
-            eveningItems.Add(new MenuItems
+            eveningItems.Add(new MenuItem
             {
                 ItemNumber = 2,
                 DishName = "Potato",
                 AllowsMany = true
             });
 
-            eveningItems.Add(new MenuItems
+            eveningItems.Add(new MenuItem
             {
                 ItemNumber = 3,
                 DishName = "Wine",
                 AllowsMany = false
             });
 
-            eveningItems.Add(new MenuItems
+            eveningItems.Add(new MenuItem
             {
                 ItemNumber = 4,
                 DishName = "Cake",

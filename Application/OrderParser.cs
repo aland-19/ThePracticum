@@ -17,7 +17,8 @@ namespace Application
                 };
             }
 
-            //Find the space between the meal type and the dishes
+            // Find the space between the meal type and the dishes
+            
             var firstSpace = order.IndexOf(" ", StringComparison.InvariantCulture);
 
             if (firstSpace == -1)
