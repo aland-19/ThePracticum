@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -58,4 +59,5 @@ public class Order
     public string InvalidReason { get; set; }
     public string MealType { get; set; }
     public List<MenuItem> OrderedItems { get; set; }
+    
 }

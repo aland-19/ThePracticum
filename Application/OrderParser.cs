@@ -43,10 +43,16 @@ namespace Application
     }
 
     public class OrderParserResult
-    {   
+    {
         public bool IsValid { get; set; }
         public string InvalidReason { get; set; }
         public string MealType { get; set; }
         public IEnumerable<string> Dishes { get; set; }
+
+        public bool CaseInsensitive(string caseInsensitiveMealType)
+        {
+            return caseInsensitiveMealType.IndexOf("morning", StringComparison.OrdinalIgnoreCase) >= 0;
+            return caseInsensitiveMealType.IndexOf("evening", StringComparison.OrdinalIgnoreCase) >= 0;
+        }   
     }
 }

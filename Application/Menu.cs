@@ -5,6 +5,7 @@ namespace Application;
 public class Menu
 {
     public Dictionary<string, List<MenuItem>> Meals;
+    
 }
 
 public class MenuItem
