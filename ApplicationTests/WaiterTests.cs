@@ -23,7 +23,7 @@ public class WaiterTests
         order.IsValid = false;
         
         //Act
-        var orderResult = _cut.Process(order, null);
+        var orderResult = _cut.Process(order, (Menu)null);
         
         //Asset
         orderResult.IsProcessable.ShouldBeFalse();
@@ -114,7 +114,8 @@ public class WaiterTests
     {
         var order = CreateOrder();
         order.IsValid = true;
-        order.MealType = "x";
+        order.MealType = "morning";
+        order.MealType = "evening";
         order.Dishes = new List<string> { "egg", "toast", "steak", "wine" , "cake"};
 
         var todaysMenu = CreateMenu();
@@ -171,15 +172,16 @@ public class WaiterTests
     {
         var order = CreateOrder();
         order.IsValid = true;
+        order.MealType = "morning";
+        order.MealType = "evening";
 
-        var todaysMenu = CreateMenu();
-        order.CaseInsensitive("morning");
-        order.CaseInsensitive("evening");
+        var caseInsensitveMealTypes = CaseInsensitive();
+        
 
-        var orderResult = _cut.Process(order, todaysMenu);
+        var orderResult = _cut.Process(order, caseInsensitveMealTypes);
 
         orderResult.IsProcessable.ShouldBeTrue();
-        
+        order.CaseInsensitve.ShouldEqual(true);
     }
     
 
@@ -189,6 +191,14 @@ public class WaiterTests
         menu.Meals = new Dictionary<string, List<MenuItem>>();
 
         return menu;
+    }
+
+    private Waiter.CaseInsensitive CaseInsensitive()
+    {
+        var caseInsensitiveMealType = new Waiter.CaseInsensitive();
+        caseInsensitiveMealType.CaseInsensitiveMealType = true;
+
+        return caseInsensitiveMealType;
     }
 
     private OrderParserResult CreateOrder()

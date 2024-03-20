@@ -29,6 +29,7 @@ namespace Application
                     InvalidReason = "MealType and Dishes do not have a space"
                 };    
             }
+            
 
             var dishes = order.Substring(firstSpace);
             var dishesList = dishes.Split(",", StringSplitOptions.TrimEntries);
@@ -48,11 +49,6 @@ namespace Application
         public string InvalidReason { get; set; }
         public string MealType { get; set; }
         public IEnumerable<string> Dishes { get; set; }
-
-        public bool CaseInsensitive(string caseInsensitiveMealType)
-        {
-            return caseInsensitiveMealType.IndexOf("morning", StringComparison.OrdinalIgnoreCase) >= 0;
-            return caseInsensitiveMealType.IndexOf("evening", StringComparison.OrdinalIgnoreCase) >= 0;
-        }   
+        public bool CaseInsensitve { get; set; }
     }
 }
