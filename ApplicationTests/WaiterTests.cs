@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Xml.Linq;
 using Application;
@@ -119,12 +120,16 @@ public class WaiterTests
         order.Dishes = new List<string> { "egg", "toast", "steak", "wine" , "cake"};
 
         var todaysMenu = CreateMenu();
+        var orderResult = _cut.Process(order, todaysMenu);
 
         foreach (var dishName in order.Dishes)
         {
             var menuItem = todaysMenu.Meals;
             Assert.IsTrue(menuItem.Count <= 1);
         }
+        
+        orderResult.IsProcessable.ShouldBeFalse();
+        orderResult.OrderedItems.ShouldBeLessThanOrEqualTo<>(1);
         
     }
 
@@ -168,7 +173,70 @@ public class WaiterTests
 
     [Test]
 
-    public void GivenAMealTypeThatIsCaseInsensitive_WhenItIsProcessed_ThenReturnNoError()
+    public void GivenAMealTypeThatBeginsWithUpperOrLowerCase_WhenItIsProcessed_ThenReturnNoError()
+    {
+
+        var order = CreateOrder();
+        order.IsValid = true;
+        order.MealType = "MORNING"; 
+        
+        var todaysMenu = CreateMenu();
+        todaysMenu.Meals.Add("morning", new List<MenuItem>());
+        todaysMenu.Meals.Add("Morning", new List<MenuItem>());
+        todaysMenu.Meals.Add("evening", new List<MenuItem>());
+        todaysMenu.Meals.Add("Evening", new List<MenuItem>());
+
+
+        var orderResult = _cut.Process(order, todaysMenu);
+        
+        Assert.IsTrue(Waiter.Order.MealTypeValidator("morning"));
+        Assert.IsTrue(Waiter.Order.MealTypeValidator("Morning"));
+        Assert.IsTrue(Waiter.Order.MealTypeValidator("evening"));
+        Assert.IsTrue(Waiter.Order.MealTypeValidator("Evening"));
+
+        orderResult.IsProcessable.ShouldBeTrue();
+        orderResult.InvalidReason.ShouldBeNull();
+
+
+    }
+    
+    [Test]
+
+    public void GivenAMealTypeThatBeginsWithUpperOrLowerCase_WhenItIsProcessed_ThenReturnNoErro()
+    {
+
+        var order = CreateOrder();
+        order.IsValid = true;
+        order.MealType = "MORNING";
+       
+        var todaysMenu = CreateMenu();
+        todaysMenu.Meals.Add("morning", new List<MenuItem>());
+        todaysMenu.Meals.Add("Morning", new List<MenuItem>());
+        todaysMenu.Meals.Add("evening", new List<MenuItem>());
+        todaysMenu.Meals.Add("Evening", new List<MenuItem>());
+        
+        var orderResult = _cut.Process(order, todaysMenu);
+        
+        var validator = new Waiter.MealTypeValidator();
+
+        Assert.IsTrue(validator.Validator("morning"));
+        Assert.IsTrue(validator.Validator("Morning"));
+        Assert.IsTrue(validator.Validator("evening"));
+        Assert.IsTrue(validator.Validator("Evening"));
+
+        orderResult.IsProcessable.ShouldBeTrue();
+        orderResult.InvalidReason.ShouldBeNull();
+
+
+
+
+    }
+    
+    
+    
+    
+
+   /* public void GivenAMealTypeThatIsCaseInsensitive_WhenItIsProcessed_ThenReturnNoError()
     {
         var order = CreateOrder();
         order.IsValid = true;
@@ -177,13 +245,17 @@ public class WaiterTests
 
         var caseInsensitveMealTypes = CaseInsensitive();
         
-
         var orderResult = _cut.Process(order, caseInsensitveMealTypes);
-
+        
         orderResult.IsProcessable.ShouldBeTrue();
-        order.CaseInsensitve.ShouldEqual(true);
+        caseInsensitveMealTypes.CaseInsensitiveMealType.ShouldEqual<>("morning");
+        caseInsensitveMealTypes.CaseInsensitiveMealType.ShouldEqual<>("evening");
     }
-    
+    */
+   
+   
+   
+
 
     private Menu CreateMenu()
     {
@@ -192,14 +264,16 @@ public class WaiterTests
 
         return menu;
     }
-
-    private Waiter.CaseInsensitive CaseInsensitive()
+    
+    
+    /*  private Waiter.CaseInsensitive CaseInsensitive()
     {
         var caseInsensitiveMealType = new Waiter.CaseInsensitive();
         caseInsensitiveMealType.CaseInsensitiveMealType = true;
 
         return caseInsensitiveMealType;
-    }
+        
+        */
 
     private OrderParserResult CreateOrder()
     {

@@ -55,7 +55,7 @@ public class Waiter
 
     }
 
-    public Order Process(OrderParserResult input, CaseInsensitive mealType)
+    /* public Order Process(OrderParserResult input, CaseInsensitive mealType)
     {
         if (input.CaseInsensitve == true)
         {
@@ -67,7 +67,7 @@ public class Waiter
         }
 
         var caseInsensitiveMealType = mealType.IndexOf("morning", StringComparison.OrdinalIgnoreCase);
-
+a
         if ((string)caseInsensitiveMealType == "morning")
         {
             return new Order()
@@ -79,7 +79,7 @@ public class Waiter
 
         return null;
     }
-    
+
 
     public class CaseInsensitive
     {
@@ -90,17 +90,34 @@ public class Waiter
             throw new NotImplementedException();
         }
     }
-
-
+    */
+    
     public class Order
     {
         public bool IsProcessable { get; set; }
         public string InvalidReason { get; set; }
         public string MealType { get; set; }
         public List<MenuItem> OrderedItems { get; set; }
+        public static bool MealTypeValidator(string userInput)
+        {
+            string[] validMealTypes = { "morning","Morning","evening","Evening"};
+            return Array.Exists(validMealTypes, input => input.Equals(userInput, StringComparison.OrdinalIgnoreCase));
+        }
 
     }
+
+    public class MealTypeValidator
+    {
+        public bool Validator(string userInput)
+        {
+            string[] validMealTypes = { "morning","Morning","evening","Evening"};
+            return Array.Exists(validMealTypes, input => input.Equals(userInput, StringComparison.OrdinalIgnoreCase));
+        }
+    }
+    
 }
+
+
 
 
 
