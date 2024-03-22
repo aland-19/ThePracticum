@@ -217,18 +217,15 @@ public class WaiterTests
         
         var orderResult = _cut.Process(order, todaysMenu);
         
-        var validator = new Waiter.MealTypeValidator();
+        var validator = new Waiter.MealTypeCaseValidator();
 
-        Assert.IsTrue(validator.Validator("morning"));
-        Assert.IsTrue(validator.Validator("Morning"));
-        Assert.IsTrue(validator.Validator("evening"));
-        Assert.IsTrue(validator.Validator("Evening"));
+        Assert.IsTrue(validator.CaseValidator("morning"));
+        Assert.IsTrue(validator.CaseValidator("Morning"));
+        Assert.IsTrue(validator.CaseValidator("evening"));
+        Assert.IsTrue(validator.CaseValidator("Evening"));
 
         orderResult.IsProcessable.ShouldBeTrue();
         orderResult.InvalidReason.ShouldBeNull();
-
-
-
 
     }
     

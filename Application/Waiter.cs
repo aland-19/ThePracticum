@@ -106,9 +106,9 @@ a
 
     }
 
-    public class MealTypeValidator
+    public class MealTypeCaseValidator
     {
-        public bool Validator(string userInput)
+        public bool CaseValidator(string userInput)
         {
             string[] validMealTypes = { "morning","Morning","evening","Evening"};
             return Array.Exists(validMealTypes, input => input.Equals(userInput, StringComparison.OrdinalIgnoreCase));
