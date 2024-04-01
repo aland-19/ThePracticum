@@ -132,45 +132,8 @@ public class WaiterTests
         orderResult.OrderedItems.ShouldBeLessThanOrEqualTo<>(1);
         
     }
-
-    /* [Test]
     
-    // This case tests which menu items can be ordered more than once
-
-     public void GivenAMenuItemThatAllowsMultipleOrders_WhenItIsProcessed_ThenReturnNoError()
-    {
-        var order = CreateOrder();
-        order.IsValid = true;
-
-        var todaysMenu = CreateMenu();
-        var coffeeCanBeOrderedMoreThanOnce = new List<MenuItem>
-        {
-            new MenuItem()
-            {
-                DishName = "coffee",
-                AllowsMany = true
-            }
-        };
-
-        var potatoesCanBeOrderedMoreThanOnce = new List<MenuItem>
-        {
-            new MenuItem()
-            {
-                DishName = "potato",
-                AllowsMany = true
-            }
-        };
-        
-        var orderResult = _cut.Process(order, todaysMenu);
-        
-        orderResult.IsProcessable.ShouldBeTrue();
-        orderResult.InvalidReason.ShouldBeNull();
-        
-        // orderResult.OrderedItems.Count.ShouldEqual<>(1..10); // Coffee or potatoes can be ordered up to 10 times. 
-        // orderResult.OrderedItems.First().DishName.ShouldEqual($"coffee(x{orderResult})"); // <- not to sure about this one.
-    }
-    */
-
+/*
     [Test]
 
     public void GivenAMealTypeThatBeginsWithUpperOrLowerCase_WhenItIsProcessed_ThenReturnNoError()
@@ -196,13 +159,10 @@ public class WaiterTests
 
         orderResult.IsProcessable.ShouldBeTrue();
         orderResult.InvalidReason.ShouldBeNull();
-
-
     }
     
-    [Test]
 
-    public void GivenAMealTypeThatBeginsWithUpperOrLowerCase_WhenItIsProcessed_ThenReturnNoErro()
+    /* public void GivenAMealTypeThatBeginsWithUpperOrLowerCase_WhenItIsProcessed_ThenReturnNoErro()
     {
 
         var order = CreateOrder();
@@ -226,29 +186,22 @@ public class WaiterTests
 
         orderResult.IsProcessable.ShouldBeTrue();
         orderResult.InvalidReason.ShouldBeNull();
-
-    }
-    
-    
-    
-    
-
-   /* public void GivenAMealTypeThatIsCaseInsensitive_WhenItIsProcessed_ThenReturnNoError()
-    {
-        var order = CreateOrder();
-        order.IsValid = true;
-        order.MealType = "morning";
-        order.MealType = "evening";
-
-        var caseInsensitveMealTypes = CaseInsensitive();
-        
-        var orderResult = _cut.Process(order, caseInsensitveMealTypes);
-        
-        orderResult.IsProcessable.ShouldBeTrue();
-        caseInsensitveMealTypes.CaseInsensitiveMealType.ShouldEqual<>("morning");
-        caseInsensitveMealTypes.CaseInsensitiveMealType.ShouldEqual<>("evening");
     }
     */
+
+    [Test]
+
+    public void GivenAMealTypeThatBeginsWithUpperOrLowerCase_WhenItIsProcessed_ThenReturnNoError()
+    {
+        var mealTypeCaseValidator = new Waiter.MealTypeCaseValidator();
+        
+        Assert.IsTrue(mealTypeCaseValidator.IsValid("morning"));
+        Assert.IsTrue(mealTypeCaseValidator.IsValid("Morning"));
+        Assert.IsTrue(mealTypeCaseValidator.IsValid("evening"));
+        Assert.IsTrue(mealTypeCaseValidator.IsValid("Evening"));
+            
+        // Not finished
+    }
    
    
    

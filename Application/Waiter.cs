@@ -16,6 +16,8 @@ public class Waiter
                 InvalidReason = "This order is not processable."
             };
         }
+        
+        
 
         //Validate that the provided mealType is on today's menu
         if (!todaysMenu.Meals.ContainsKey(input.MealType))
@@ -54,43 +56,38 @@ public class Waiter
         //var CaseInsensitiveMealType = string.IndexOf("morning", StringComparsion.OrdinalIgnoreCase);
 
     }
-
-    /* public Order Process(OrderParserResult input, CaseInsensitive mealType)
+    
+    public class MealTypeCaseValidator
     {
-        if (input.CaseInsensitve == true)
+        public List<string> mealTypes;
+    
+        public List<string> GetValidMealTypes()
         {
-            return new Order
-            {
-                IsProcessable = true,
+            List<string> validMealTypes = new List<string>();
+            foreach (string mealType in mealTypes)
+            { 
+                if (IsValid(mealType))
+                {
+                    validMealTypes.Add(mealType);
+                }
+            
+            }
 
-            };
+            return validMealTypes;
         }
-
-        var caseInsensitiveMealType = mealType.IndexOf("morning", StringComparison.OrdinalIgnoreCase);
-a
-        if ((string)caseInsensitiveMealType == "morning")
+        
+        public bool IsValid(string mealType)
         {
-            return new Order()
-            {
-                IsProcessable = true,
-
-            };
-        }
-
-        return null;
-    }
-
-
-    public class CaseInsensitive
-    {
-        public bool CaseInsensitiveMealType { get; set; }
-
-        public object IndexOf(string mealType, StringComparison ordinalIgnoreCase)
-        {
-            throw new NotImplementedException();
+            // Lower case
+            string lowerCaseMealType = mealType.ToLower();
+            return lowerCaseMealType == "morning" || lowerCaseMealType == "evening";
+            
+            // Upper case
+            string upperCaseMealType = mealType.ToUpper();
+            return upperCaseMealType == "Morning" || upperCaseMealType == "Evening";
+            
         }
     }
-    */
     
     public class Order
     {
@@ -106,7 +103,7 @@ a
 
     }
 
-    public class MealTypeCaseValidator
+  /*  public class MealTypeCaseValidator
     {
         public bool CaseValidator(string userInput)
         {
@@ -114,11 +111,8 @@ a
             return Array.Exists(validMealTypes, input => input.Equals(userInput, StringComparison.OrdinalIgnoreCase));
         }
     }
-    
+    */
 }
-
-
-
 
 
 

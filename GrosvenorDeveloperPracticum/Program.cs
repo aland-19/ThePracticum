@@ -50,7 +50,7 @@ namespace GrosvenorInHousePracticum
                 DishName = "Coffee",
                 AllowsMany = true
             });
-            
+
             var menu = new Menu();
             menu.Meals.Add("morning", morningItems);
             menu.Meals.Add("evening", new List<MenuItem> {});
