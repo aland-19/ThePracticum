@@ -78,17 +78,10 @@ public class Waiter
         
         public bool IsValid(string mealType)
         {
-            // Lower case
             string lowerCaseMealType = mealType.ToLower();
-            return lowerCaseMealType == "morning" || lowerCaseMealType == "evening";
-            
-            // Upper case
-            string upperCaseMealType = mealType.ToUpper();
-            return upperCaseMealType == "Morning" || upperCaseMealType == "Evening";
-            
-        }
+            return lowerCaseMealType == "morning" || lowerCaseMealType == "evening" || (char.IsUpper(mealType[0]));
+        }                                                                      // Not too sure about this one ^
     }
-    
     public class Order
     {
         public bool IsProcessable { get; set; }

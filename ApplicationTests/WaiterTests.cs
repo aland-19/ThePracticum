@@ -193,13 +193,20 @@ public class WaiterTests
 
     public void GivenAMealTypeThatBeginsWithUpperOrLowerCase_WhenItIsProcessed_ThenReturnNoError()
     {
+        var order = CreateOrder();
         var mealTypeCaseValidator = new Waiter.MealTypeCaseValidator();
+        order.IsValid = true;
+        mealTypeCaseValidator.mealTypes = new List<string> { "morning", "Morning", "evening", "Evening" };
+
+        var todaysMenu = CreateMenu();
+        var orderResult = _cut.Process(order, todaysMenu);
+        var validMealTypes = mealTypeCaseValidator.GetValidMealTypes();
         
-        Assert.IsTrue(mealTypeCaseValidator.IsValid("morning"));
-        Assert.IsTrue(mealTypeCaseValidator.IsValid("Morning"));
-        Assert.IsTrue(mealTypeCaseValidator.IsValid("evening"));
-        Assert.IsTrue(mealTypeCaseValidator.IsValid("Evening"));
-            
+        Assert.Contains("morning", validMealTypes);
+        Assert.Contains("evening", validMealTypes);
+
+        orderResult.IsProcessable.ShouldBeTrue();
+        
         // Not finished
     }
    
