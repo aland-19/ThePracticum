@@ -56,33 +56,71 @@ public class Waiter
         //var CaseInsensitiveMealType = string.IndexOf("morning", StringComparsion.OrdinalIgnoreCase);
 
     }
-    
-    public class MealTypeCaseValidator
+
+    /* public class MealTypeCaseValidator
     {
         public List<string> mealTypes;
-    
+
         public List<string> GetValidMealTypes()
         {
             List<string> validMealTypes = new List<string>();
             foreach (string mealType in mealTypes)
-            { 
+            {
                 if (IsValid(mealType))
                 {
                     validMealTypes.Add(mealType);
                 }
-            
+
             }
 
             return validMealTypes;
         }
-        
+
+        /*
         public bool IsValid(string mealType)
         {
             string lowerCaseMealType = mealType.ToLower();
             return lowerCaseMealType == "morning" || lowerCaseMealType == "evening" || (char.IsUpper(mealType[0]));
         }                                                                      // Not too sure about this one ^
+*/
+
     }
-    public class Order
+
+public class MealTypeValidator
+{
+    public bool IsValid(List<string> allMealTypes, string providedMealType)
+    {
+        foreach (var mealType in allMealTypes)
+        {
+            if (string.Equals(mealType, providedMealType, StringComparison.OrdinalIgnoreCase))
+            {
+                if (IsLowerCase(providedMealType))
+                {
+                    return true;
+                }
+
+                if (IsProperCase(providedMealType))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public bool IsLowerCase(string userInput)
+    {
+        return userInput == userInput.ToLower();
+    }
+
+    public bool IsProperCase(string userInput)
+    {
+        return char.IsUpper(userInput[0]) && userInput.Substring(1).ToLower() == userInput.Substring(1);
+    }
+}
+
+public class Order
     {
         public bool IsProcessable { get; set; }
         public string InvalidReason { get; set; }
@@ -95,23 +133,4 @@ public class Waiter
         }
 
     }
-
-  /*  public class MealTypeCaseValidator
-    {
-        public bool CaseValidator(string userInput)
-        {
-            string[] validMealTypes = { "morning","Morning","evening","Evening"};
-            return Array.Exists(validMealTypes, input => input.Equals(userInput, StringComparison.OrdinalIgnoreCase));
-        }
-    }
-    */
-}
-
-
-
-/* public bool CaseInsensitive(string caseInsensitiveMealType)
-{
-    return caseInsensitiveMealType.IndexOf("morning", StringComparison.OrdinalIgnoreCase) >= 0;
-    return caseInsensitiveMealType.IndexOf("evening", StringComparison.OrdinalIgnoreCase) >= 0;
-}
-*/
+    

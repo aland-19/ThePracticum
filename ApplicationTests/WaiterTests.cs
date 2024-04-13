@@ -188,7 +188,7 @@ public class WaiterTests
         orderResult.InvalidReason.ShouldBeNull();
     }
     */
-
+/*
     [Test]
 
     public void GivenAMealTypeThatBeginsWithUpperOrLowerCase_WhenItIsProcessed_ThenReturnNoError()
@@ -207,10 +207,29 @@ public class WaiterTests
 
         orderResult.IsProcessable.ShouldBeTrue();
         
-        // Not finished
+       
     }
-   
-   
+    */
+    
+    public class MealTypeTests
+    {
+        public MealTypeValidator MealTypeValidator;
+
+        public List<string> standardMealTypes;
+        
+        [Test]
+        public void GivenAValidMealTypeThatBeginsWithProperOrLowerCase_WhenItIsProcessed_ThenReturnNoError()
+        {
+            MealTypeValidator = new MealTypeValidator();
+            standardMealTypes = new List<string> { "morning", "evening" };
+            
+            Assert.IsTrue(MealTypeValidator.IsValid(standardMealTypes, "morning"));
+            Assert.IsTrue(MealTypeValidator.IsValid(standardMealTypes, "evening"));
+
+        }
+        
+    }
+  
    
 
 
@@ -222,15 +241,6 @@ public class WaiterTests
         return menu;
     }
     
-    
-    /*  private Waiter.CaseInsensitive CaseInsensitive()
-    {
-        var caseInsensitiveMealType = new Waiter.CaseInsensitive();
-        caseInsensitiveMealType.CaseInsensitiveMealType = true;
-
-        return caseInsensitiveMealType;
-        
-        */
 
     private OrderParserResult CreateOrder()
     {
