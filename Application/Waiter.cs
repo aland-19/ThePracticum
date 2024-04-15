@@ -88,7 +88,7 @@ public class Waiter
 
 public class MealTypeValidator
 {
-    public bool IsValid(List<string> allMealTypes, string providedMealType)
+    public bool IsValid(IEnumerable<string> allMealTypes, string providedMealType)
     {
         foreach (var mealType in allMealTypes)
         {
@@ -109,12 +109,12 @@ public class MealTypeValidator
         return false;
     }
 
-    public bool IsLowerCase(string userInput)
+    private bool IsLowerCase(string userInput)
     {
         return userInput == userInput.ToLower();
     }
 
-    public bool IsProperCase(string userInput)
+    private bool IsProperCase(string userInput)
     {
         return char.IsUpper(userInput[0]) && userInput.Substring(1).ToLower() == userInput.Substring(1);
     }

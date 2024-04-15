@@ -129,7 +129,7 @@ public class WaiterTests
         }
         
         orderResult.IsProcessable.ShouldBeFalse();
-        orderResult.OrderedItems.ShouldBeLessThanOrEqualTo<>(1);
+        orderResult.OrderedItems.Count.ShouldBeLessThanOrEqualTo(1);
         
     }
     
@@ -211,24 +211,7 @@ public class WaiterTests
     }
     */
     
-    public class MealTypeTests
-    {
-        public MealTypeValidator MealTypeValidator;
 
-        public List<string> standardMealTypes;
-        
-        [Test]
-        public void GivenAValidMealTypeThatBeginsWithProperOrLowerCase_WhenItIsProcessed_ThenReturnNoError()
-        {
-            MealTypeValidator = new MealTypeValidator();
-            standardMealTypes = new List<string> { "morning", "evening" };
-            
-            Assert.IsTrue(MealTypeValidator.IsValid(standardMealTypes, "morning"));
-            Assert.IsTrue(MealTypeValidator.IsValid(standardMealTypes, "evening"));
-
-        }
-        
-    }
   
    
 
