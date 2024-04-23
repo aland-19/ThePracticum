@@ -77,8 +77,6 @@ public class WaiterTests
     }
 
     [Test]
-    
-    [Ignore("Not yet fully implemented")]
     public void GivenAValidOrder_WhenItIsProcessed_ThenReturnNoError()
     
     {
@@ -92,7 +90,31 @@ public class WaiterTests
         {
             new MenuItem
             {
+                DishName = "egg"
+            },
+            new MenuItem
+            {
+                DishName = "toast"
+            },
+            new MenuItem
+            {
                 DishName = "coffee"
+            },
+            new MenuItem
+            {
+                DishName = "steak"
+            },
+            new MenuItem
+            {
+                DishName = "potato"
+            },
+            new MenuItem
+            {
+                DishName = "wine"
+            },
+            new MenuItem
+            {
+                DishName = "cake"
             }
         };
 
@@ -104,9 +126,9 @@ public class WaiterTests
         orderResult.MealType.ShouldEqual("x");
         orderResult.InvalidReason.ShouldBeNull();
         
-        //Not yet implemented in the code
+        
         orderResult.OrderedItems.Count.ShouldEqual(1);
-        orderResult.OrderedItems.First().DishName.ShouldEqual("coffee");
+        orderResult.OrderedItems.First().DishName.ShouldEqual("egg");
     }
 
     [Test]
@@ -132,89 +154,6 @@ public class WaiterTests
         orderResult.OrderedItems.Count.ShouldBeLessThanOrEqualTo(1);
         
     }
-    
-/*
-    [Test]
-
-    public void GivenAMealTypeThatBeginsWithUpperOrLowerCase_WhenItIsProcessed_ThenReturnNoError()
-    {
-
-        var order = CreateOrder();
-        order.IsValid = true;
-        order.MealType = "MORNING"; 
-        
-        var todaysMenu = CreateMenu();
-        todaysMenu.Meals.Add("morning", new List<MenuItem>());
-        todaysMenu.Meals.Add("Morning", new List<MenuItem>());
-        todaysMenu.Meals.Add("evening", new List<MenuItem>());
-        todaysMenu.Meals.Add("Evening", new List<MenuItem>());
-
-
-        var orderResult = _cut.Process(order, todaysMenu);
-        
-        Assert.IsTrue(Waiter.Order.MealTypeValidator("morning"));
-        Assert.IsTrue(Waiter.Order.MealTypeValidator("Morning"));
-        Assert.IsTrue(Waiter.Order.MealTypeValidator("evening"));
-        Assert.IsTrue(Waiter.Order.MealTypeValidator("Evening"));
-
-        orderResult.IsProcessable.ShouldBeTrue();
-        orderResult.InvalidReason.ShouldBeNull();
-    }
-    
-
-    /* public void GivenAMealTypeThatBeginsWithUpperOrLowerCase_WhenItIsProcessed_ThenReturnNoErro()
-    {
-
-        var order = CreateOrder();
-        order.IsValid = true;
-        order.MealType = "MORNING";
-       
-        var todaysMenu = CreateMenu();
-        todaysMenu.Meals.Add("morning", new List<MenuItem>());
-        todaysMenu.Meals.Add("Morning", new List<MenuItem>());
-        todaysMenu.Meals.Add("evening", new List<MenuItem>());
-        todaysMenu.Meals.Add("Evening", new List<MenuItem>());
-        
-        var orderResult = _cut.Process(order, todaysMenu);
-        
-        var validator = new Waiter.MealTypeCaseValidator();
-
-        Assert.IsTrue(validator.CaseValidator("morning"));
-        Assert.IsTrue(validator.CaseValidator("Morning"));
-        Assert.IsTrue(validator.CaseValidator("evening"));
-        Assert.IsTrue(validator.CaseValidator("Evening"));
-
-        orderResult.IsProcessable.ShouldBeTrue();
-        orderResult.InvalidReason.ShouldBeNull();
-    }
-    */
-/*
-    [Test]
-
-    public void GivenAMealTypeThatBeginsWithUpperOrLowerCase_WhenItIsProcessed_ThenReturnNoError()
-    {
-        var order = CreateOrder();
-        var mealTypeCaseValidator = new Waiter.MealTypeCaseValidator();
-        order.IsValid = true;
-        mealTypeCaseValidator.mealTypes = new List<string> { "morning", "Morning", "evening", "Evening" };
-
-        var todaysMenu = CreateMenu();
-        var orderResult = _cut.Process(order, todaysMenu);
-        var validMealTypes = mealTypeCaseValidator.GetValidMealTypes();
-        
-        Assert.Contains("morning", validMealTypes);
-        Assert.Contains("evening", validMealTypes);
-
-        orderResult.IsProcessable.ShouldBeTrue();
-        
-       
-    }
-    */
-    
-
-  
-   
-
 
     private Menu CreateMenu()
     {

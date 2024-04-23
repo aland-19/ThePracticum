@@ -16,8 +16,8 @@ public class Waiter
                 InvalidReason = "This order is not processable."
             };
         }
-        
-        
+
+
 
         //Validate that the provided mealType is on today's menu
         if (!todaysMenu.Meals.ContainsKey(input.MealType))
@@ -53,38 +53,8 @@ public class Waiter
             MealType = input.MealType
         };
 
-        //var CaseInsensitiveMealType = string.IndexOf("morning", StringComparsion.OrdinalIgnoreCase);
-
     }
-
-    /* public class MealTypeCaseValidator
-    {
-        public List<string> mealTypes;
-
-        public List<string> GetValidMealTypes()
-        {
-            List<string> validMealTypes = new List<string>();
-            foreach (string mealType in mealTypes)
-            {
-                if (IsValid(mealType))
-                {
-                    validMealTypes.Add(mealType);
-                }
-
-            }
-
-            return validMealTypes;
-        }
-
-        /*
-        public bool IsValid(string mealType)
-        {
-            string lowerCaseMealType = mealType.ToLower();
-            return lowerCaseMealType == "morning" || lowerCaseMealType == "evening" || (char.IsUpper(mealType[0]));
-        }                                                                      // Not too sure about this one ^
-*/
-
-    }
+}
 
 public class MealTypeValidator
 {
@@ -120,8 +90,76 @@ public class MealTypeValidator
     }
 }
 
+public class MenuItemsThatDontTakeMultipleOrders
+{
+    public OrderParserResult Process(Order order, List<MenuItem> menu)
+    {
+        var orderResult = new OrderParserResult();
+        orderResult.OrderedItems = new List<MenuItem>();
+
+        foreach (var dishName in order.Dishes)
+        {
+            var menuItem = menu.FirstOrDefault(menuItem => menuItem.AllowsMany);
+            if (menuItem.AllowsMany == false && order.Dishes.Count(dish => dish == dishName) > 1) 
+            {
+                orderResult.IsValid = false;
+                orderResult.InvalidReason = "This dish cannot be ordered more than once:" + dishName;
+                return orderResult;
+            }
+            orderResult.OrderedItems.Add(menuItem);
+        }
+        
+        orderResult.IsValid = true;
+        orderResult.IsProcessable = orderResult.OrderedItems.Count <= 1;
+        return orderResult;
+    }
+
+}
+
+public class OrderIsValidOrNot
+{
+    public OrderParserResult Process (Order order, Menu todaysMenu)
+    {
+        if (!order.IsValid)
+        {
+            return new OrderParserResult
+            {
+                IsProcessable = false,
+                IsValid = false,
+                InvalidReason = "Order is not valid"
+
+            };
+        }
+
+        var validOrder = new OrderParserResult()
+        {
+            IsProcessable = true,
+            IsValid = true,
+            InvalidReason = null
+
+        };
+        
+        if (todaysMenu.Meals.ContainsKey(order.MealType))
+        {
+            foreach (var dish in order.Dishes)
+            {
+                var menuItem = todaysMenu.Meals[order.MealType].FirstOrDefault(newMenuItem => newMenuItem.DishName == dish);
+                if (menuItem == null)
+                {
+                    validOrder.OrderedItems.Add(menuItem);
+                    
+                }
+            }
+        }
+
+        return validOrder;
+    }
+
+}
+
 public class Order
     {
+        public bool IsValid { get; set; }
         public bool IsProcessable { get; set; }
         public string InvalidReason { get; set; }
         public string MealType { get; set; }
@@ -131,6 +169,7 @@ public class Order
             string[] validMealTypes = { "morning","Morning","evening","Evening"};
             return Array.Exists(validMealTypes, input => input.Equals(userInput, StringComparison.OrdinalIgnoreCase));
         }
-
+        
+        public List<string> Dishes { get; set; }
     }
     

@@ -45,10 +45,12 @@ namespace Application
 
     public class OrderParserResult
     {
+        public List<MenuItem> OrderedItems { get; set; }
         public bool IsValid { get; set; }
         public string InvalidReason { get; set; }
         public string MealType { get; set; }
         public IEnumerable<string> Dishes { get; set; }
-        public bool CaseInsensitve { get; set; }
+        
+        public bool IsProcessable { get; set; }
     }
 }
