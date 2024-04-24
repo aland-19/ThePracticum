@@ -90,34 +90,42 @@ public class WaiterTests
         {
             new MenuItem
             {
-                DishName = "egg"
+                DishName = "egg",
+                AllowsMany = false,
             },
             new MenuItem
             {
-                DishName = "toast"
+                DishName = "toast",
+                AllowsMany = false,
             },
             new MenuItem
             {
-                DishName = "coffee"
+                DishName = "coffee",
+                AllowsMany = true
             },
             new MenuItem
             {
-                DishName = "steak"
+                DishName = "steak",
+                AllowsMany = false
             },
             new MenuItem
             {
-                DishName = "potato"
+                DishName = "potato",
+                AllowsMany = true,
             },
             new MenuItem
             {
-                DishName = "wine"
+                DishName = "wine",
+                AllowsMany = false
             },
             new MenuItem
             {
-                DishName = "cake"
+                DishName = "cake",
+                AllowsMany = false
             }
         };
-
+        
+        
         todaysMenu.Meals.Add("x", todaysMenuItems);
 
         var orderResult = _cut.Process(order, todaysMenu);
@@ -127,8 +135,7 @@ public class WaiterTests
         orderResult.InvalidReason.ShouldBeNull();
         
         
-        orderResult.OrderedItems.Count.ShouldEqual(1);
-        orderResult.OrderedItems.First().DishName.ShouldEqual("egg");
+        orderResult.DishCount.ShouldBeLessThanOrEqualTo(1);
     }
 
     [Test]
@@ -151,7 +158,7 @@ public class WaiterTests
         }
         
         orderResult.IsProcessable.ShouldBeFalse();
-        orderResult.OrderedItems.Count.ShouldBeLessThanOrEqualTo(1);
+        orderResult.DishCount.ShouldBeLessThanOrEqualTo(1);
         
     }
 

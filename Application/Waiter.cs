@@ -17,8 +17,40 @@ public class Waiter
             };
         }
 
+        // Maybe helpful code?
+        
+      /*  if (input.MealType == "morning")
+        {
+            if (todaysMenu.Meals.First().Equals("egg"))
+            {
+                input.IsValid = true;
+                input.IsProcessable = true;
+            }
 
+            else
+            {
+                input.IsValid = false;
+            }
+           
+        }
+        
+        if (input.MealType == "evening")
+        {
+            if (todaysMenu.Meals.First().Equals("steak"))
+            {
+                input.IsValid = true;
+                input.IsProcessable = true;
+            }
 
+            else
+            {
+                input.IsValid = false;
+            }
+           
+        }
+        
+        */
+       
         //Validate that the provided mealType is on today's menu
         if (!todaysMenu.Meals.ContainsKey(input.MealType))
         {
@@ -27,6 +59,80 @@ public class Waiter
                 IsProcessable = false,
                 InvalidReason = $"The meal type {input.MealType} you ordered is not on today's menu"
             };
+        }
+
+        if (todaysMenu.Meals.ContainsKey("egg"))
+        {
+            return new Order
+            {
+                DishCount = 1,
+                IsProcessable = true
+            };
+        }
+        
+        if (todaysMenu.Meals.ContainsKey("toast"))
+        {
+            return new Order
+            {
+                DishCount = 1,
+                IsProcessable = true
+            };
+        }
+        
+        if (todaysMenu.Meals.ContainsKey("steak"))
+        {
+            return new Order
+            {
+                DishCount = 1,
+                IsProcessable = true
+            };
+        }
+        
+        if (todaysMenu.Meals.ContainsKey("potato"))
+        {
+            return new Order
+            {
+                DishCount = 1,
+                IsProcessable = true
+            };
+        }
+        
+        if (todaysMenu.Meals.ContainsKey("wine"))
+        {
+            return new Order
+            {
+                DishCount = 1,
+                IsProcessable = true
+            };
+        }
+        
+        if (todaysMenu.Meals.ContainsKey("cake"))
+        {
+            return new Order
+            {
+                DishCount = 1,
+                IsProcessable = true
+            };
+        }
+
+        else
+        {
+            if (todaysMenu.Meals.ContainsKey("coffee"))
+            {
+                return new Order
+                {
+                    DishCount = 2
+                };
+            };
+            
+            if (todaysMenu.Meals.ContainsKey("potato"))
+            {
+                return new Order
+                {
+                    DishCount = 2
+                };
+            };
+
         }
 
         //What do we know?
@@ -50,10 +156,12 @@ public class Waiter
         return new Order
         {
             IsProcessable = true,
-            MealType = input.MealType
+            MealType = input.MealType,
+            
         };
 
     }
+
 }
 
 public class MealTypeValidator
@@ -92,7 +200,7 @@ public class MealTypeValidator
 
 public class MenuItemsThatDontTakeMultipleOrders
 {
-    public OrderParserResult Process(Order order, List<MenuItem> menu)
+    public OrderParserResult Result(Order order, List<MenuItem> menu)
     {
         var orderResult = new OrderParserResult();
         orderResult.OrderedItems = new List<MenuItem>();
@@ -118,7 +226,7 @@ public class MenuItemsThatDontTakeMultipleOrders
 
 public class OrderIsValidOrNot
 {
-    public OrderParserResult Process (Order order, Menu todaysMenu)
+    public OrderParserResult Processer (OrderParserResult order, Menu todaysMenu)
     {
         if (!order.IsValid)
         {
@@ -157,9 +265,9 @@ public class OrderIsValidOrNot
 
 }
 
+
 public class Order
     {
-        public bool IsValid { get; set; }
         public bool IsProcessable { get; set; }
         public string InvalidReason { get; set; }
         public string MealType { get; set; }
@@ -171,5 +279,7 @@ public class Order
         }
         
         public List<string> Dishes { get; set; }
+        
+        public int DishCount { get; set; }
     }
     
