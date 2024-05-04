@@ -50,7 +50,6 @@ namespace Application
         public string InvalidReason { get; set; }
         public string MealType { get; set; }
         public IEnumerable<string> Dishes { get; set; }
-        
         public bool IsProcessable { get; set; }
     }
 }

@@ -16,5 +16,6 @@ public class MenuItem
     public int ItemNumber { get; set; }
     
     public int Count { get; set; }
+    public IEnumerable<string> Dishes { get; set; }
 }
     

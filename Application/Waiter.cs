@@ -17,41 +17,11 @@ public class Waiter
             };
         }
 
-        // Maybe helpful code?
-        
-      /*  if (input.MealType == "morning")
-        {
-            if (todaysMenu.Meals.First().Equals("egg"))
-            {
-                input.IsValid = true;
-                input.IsProcessable = true;
-            }
-
-            else
-            {
-                input.IsValid = false;
-            }
-           
-        }
-        
-        if (input.MealType == "evening")
-        {
-            if (todaysMenu.Meals.First().Equals("steak"))
-            {
-                input.IsValid = true;
-                input.IsProcessable = true;
-            }
-
-            else
-            {
-                input.IsValid = false;
-            }
-           
-        }
-        
-        */
-       
         //Validate that the provided mealType is on today's menu
+        
+        
+        /*
+         
         if (!todaysMenu.Meals.ContainsKey(input.MealType))
         {
             return new Order
@@ -60,6 +30,7 @@ public class Waiter
                 InvalidReason = $"The meal type {input.MealType} you ordered is not on today's menu"
             };
         }
+        
 
         if (todaysMenu.Meals.ContainsKey("egg"))
         {
@@ -134,6 +105,8 @@ public class Waiter
             };
 
         }
+        */
+        
 
         //What do we know?
         // That the meal type the user is ordering is in the menu!
@@ -200,28 +173,34 @@ public class MealTypeValidator
 
 public class MenuItemsThatDontTakeMultipleOrders
 {
-    public OrderParserResult Result(Order order, List<MenuItem> menu)
+    public bool IsValid(List<MenuItem> menuItem)
     {
         var orderResult = new OrderParserResult();
         orderResult.OrderedItems = new List<MenuItem>();
 
-        foreach (var dishName in order.Dishes)
+        foreach (var dish in menuItem)
         {
-            var menuItem = menu.FirstOrDefault(menuItem => menuItem.AllowsMany);
-            if (menuItem.AllowsMany == false && order.Dishes.Count(dish => dish == dishName) > 1) 
+            
+            if (dish.AllowsMany == false && menuItem.Count > 1) 
             {
                 orderResult.IsValid = false;
-                orderResult.InvalidReason = "This dish cannot be ordered more than once:" + dishName;
-                return orderResult;
+                orderResult.InvalidReason = "This dish cannot be ordered more than once:" + menuItem;
+                return false;
             }
-            orderResult.OrderedItems.Add(menuItem);
+            orderResult.OrderedItems.Add(dish);
+            
         }
         
         orderResult.IsValid = true;
         orderResult.IsProcessable = orderResult.OrderedItems.Count <= 1;
-        return orderResult;
+        return true;
     }
 
+   /*public object IsValid(string[] mealType, List<MenuItem> menuItems, bool isValid)
+    {
+        throw new NotImplementedException();
+    }
+    */
 }
 
 public class OrderIsValidOrNot
@@ -248,18 +227,17 @@ public class OrderIsValidOrNot
         };
         
         if (todaysMenu.Meals.ContainsKey(order.MealType))
-        {
+        {  
             foreach (var dish in order.Dishes)
             {
                 var menuItem = todaysMenu.Meals[order.MealType].FirstOrDefault(newMenuItem => newMenuItem.DishName == dish);
                 if (menuItem == null)
                 {
                     validOrder.OrderedItems.Add(menuItem);
-                    
                 }
             }
-        }
-
+        }   
+        
         return validOrder;
     }
 

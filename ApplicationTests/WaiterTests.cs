@@ -6,6 +6,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Application;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using Should;
 
 namespace ApplicationTests;
@@ -40,7 +41,7 @@ public class WaiterTests
         
         var order = CreateOrder();
         order.IsValid = true;
-        order.MealType = "alan"; // This does not need to match "morning" and "evening" below. If it doesn't the test will pass successfully.
+        order.MealType = "hi"; // This does not need to match "morning" and "evening" below. If it doesn't the test will pass successfully.
         
         var todaysMenu = CreateMenu();
         todaysMenu.Meals.Add("Morning", new List<MenuItem>());
@@ -138,8 +139,29 @@ public class WaiterTests
         orderResult.DishCount.ShouldBeLessThanOrEqualTo(1);
     }
 
-    [Test]
+    
+    public class MultipleOrdersTests
+    {
+        public MenuItemsThatDontTakeMultipleOrders _validator = new MenuItemsThatDontTakeMultipleOrders();
 
+        [TestCase("morning", "1,1", false)]
+        [TestCase("morning", "2,2", false)]
+        [TestCase("morning", "3,3", true)]
+        [TestCase("evening", "1,1", false)]
+        [TestCase("evening", "2,2", true)]
+        [TestCase("evening", "3,3", false)]
+        [TestCase("evening", "4,4", false)]
+        
+        public void GivenAMenuItemThatDoesNotAllowMultipleOrders_WhenItIsProcessed_ThenReturnError(string mealTypesFromMenu, List<MenuItem> menuItems, bool isValid )
+        {
+          var anyMealType = mealTypesFromMenu.Split(",");
+          _validator.IsValid(menuItems).ShouldEqual(isValid);
+
+        }
+        
+    }
+    
+    /*
     public void GivenAMenuItemThatDoesNotAllowMultipleOrders_WhenItIsProcessed_ThenReturnError()
     {
         var order = CreateOrder();
@@ -160,8 +182,12 @@ public class WaiterTests
         orderResult.IsProcessable.ShouldBeFalse();
         orderResult.DishCount.ShouldBeLessThanOrEqualTo(1);
         
-    }
 
+
+    }
+    
+    */
+    
     private Menu CreateMenu()
     {
         var menu = new Menu();
